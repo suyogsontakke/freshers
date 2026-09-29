@@ -2,8 +2,8 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-  <title>THE FRESHERS ’26 • Hitchki Nagpur | Official Event Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>THE FRESHERS ’26 • Hitchki Nagpur</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,705 +11,620 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Three.js for 3D Cyber Particle Atmosphere -->
+  <!-- Three.js (3D Canvas Elements) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Google Fonts: Syne, Space Grotesk & Plus Jakarta Sans -->
+  <!-- High-End Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      color-scheme: dark;
-    }
     * {
       box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
     }
     html, body {
       overflow-x: hidden;
       width: 100%;
-      max-width: 100vw;
       background-color: #030307;
-      color: #f4f4f7;
+      color: #f4f4f5;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .font-syne {
       font-family: 'Syne', sans-serif;
     }
-    .font-space {
-      font-family: 'Space Grotesk', sans-serif;
+
+    /* Fluid Clamped Headline to Never Overflow or Cut Off on Mobile */
+    .hero-title-main {
+      font-size: clamp(2.3rem, 10vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+    .hero-title-year {
+      font-size: clamp(3.2rem, 13vw, 9.5rem);
+      line-height: 0.85;
+      letter-spacing: -0.05em;
     }
 
-    /* Ambient cyber-grid pattern */
-    .cyber-grid {
-      background-size: 32px 32px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    /* Glow & Text Effects */
+    .glow-pink-text {
+      text-shadow: 0 0 20px rgba(244, 63, 94, 0.9), 0 0 50px rgba(244, 63, 94, 0.5);
     }
-
-    /* Glassmorphism card surfaces */
-    .glass-card {
-      background: rgba(14, 14, 22, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    .glow-cyan-text {
+      text-shadow: 0 0 20px rgba(6, 182, 212, 0.9), 0 0 40px rgba(6, 182, 212, 0.5);
     }
-    .glass-card:hover {
-      border-color: rgba(244, 63, 94, 0.4);
-      box-shadow: 0 16px 36px -8px rgba(244, 63, 94, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    .glass-hero {
-      background: linear-gradient(145deg, rgba(244, 63, 94, 0.14) 0%, rgba(13, 13, 22, 0.92) 55%, rgba(6, 182, 212, 0.1) 100%);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(244, 63, 94, 0.38);
-      box-shadow: 0 20px 40px -10px rgba(244, 63, 94, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-    }
-
-    /* Fluid Clamped Headline Sizing */
-    .title-fluid-main {
-      font-size: clamp(2.35rem, 11vw, 7.8rem);
-      line-height: 0.92;
-    }
-    .title-fluid-year {
-      font-size: clamp(3.2rem, 16vw, 10rem);
-      line-height: 0.9;
-    }
-
-    /* High contrast text strokes */
-    .neon-stroke {
-      -webkit-text-stroke: 1.5px #f43f5e;
+    .hollow-outline {
+      -webkit-text-stroke: 2px #f43f5e;
       color: transparent;
-      filter: drop-shadow(0 0 22px rgba(244, 63, 94, 0.85));
+      filter: drop-shadow(0 0 25px rgba(244, 63, 94, 0.7));
     }
-    @media (min-width: 640px) {
-      .neon-stroke {
-        -webkit-text-stroke: 3px #f43f5e;
+
+    /* See-Through Glassmorphism Panels so 3D background is fully visible */
+    .glass-panel {
+      background: rgba(10, 10, 18, 0.62);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+    .glass-card {
+      background: rgba(14, 14, 25, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .glass-card:hover {
+        border-color: rgba(244, 63, 94, 0.5);
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px -10px rgba(244, 63, 94, 0.4);
       }
     }
 
-    /* Perforated VIP Ticket Pass Styling */
-    .ticket-stub {
-      position: relative;
-    }
-    .ticket-stub::before,
-    .ticket-stub::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #030307;
-      border: 1px solid rgba(244, 63, 94, 0.4);
-      z-index: 20;
-      transform: translateY(-50%);
-    }
-    .ticket-stub::before {
-      left: -12px;
-    }
-    .ticket-stub::after {
-      right: -12px;
-    }
-
-    /* Marquee Track Animation */
-    @keyframes marqueeScroll {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-    .marquee-track {
-      display: flex;
-      width: 200%;
-      animation: marqueeScroll 18s linear infinite;
-    }
-    .marquee-track:hover {
-      animation-play-state: paused;
-    }
-
-    /* Scroll Trigger Elements */
+    /* Scroll Trigger Reveal Classes */
     .reveal-item {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
     .reveal-item.revealed {
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Infinite Marquee */
+    @keyframes marqueeMove {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .track-marquee {
+      display: flex;
+      width: 200%;
+      animation: marqueeMove 13s linear infinite;
+    }
   </style>
 </head>
 
-<body class="cyber-grid relative pb-28 md:pb-16 min-h-screen">
+<body class="min-h-screen relative selection:bg-pink-600 selection:text-white pb-28 sm:pb-16">
 
-  <!-- Interactive 3D WebGL Canvas -->
-  <canvas id="stage-canvas" class="fixed inset-0 pointer-events-none -z-10"></canvas>
+  <!-- Interactive 3D Canvas in Background (Three.js with floating wireframe gems & particles) -->
+  <canvas id="canvas-3d" class="fixed inset-0 w-full h-full pointer-events-none -z-10"></canvas>
 
-  <!-- Ambient Glow Orbs -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[90vw] max-w-[700px] h-[360px] bg-gradient-to-tr from-pink-600/25 via-purple-600/20 to-cyan-500/20 blur-[140px] -z-10 pointer-events-none"></div>
-  <div class="fixed bottom-12 right-0 w-[80vw] max-w-[480px] h-[340px] bg-cyan-600/15 blur-[140px] -z-10 pointer-events-none"></div>
+  <!-- Ambient Color Lighting Orbs -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[320px] sm:w-[650px] h-[300px] bg-gradient-to-tr from-pink-600/30 via-purple-600/25 to-cyan-500/25 blur-[120px] -z-10 pointer-events-none"></div>
+  <div class="fixed bottom-1/4 right-0 w-[260px] sm:w-[480px] h-[260px] bg-cyan-500/20 blur-[130px] -z-10 pointer-events-none"></div>
 
-  <!-- Mobile Floating Sticky Dock (Minimum 48px Touch Target) -->
-  <nav aria-label="Mobile Pass Booking Dock" class="fixed bottom-3 inset-x-3 z-50 p-3 glass-card rounded-2xl flex items-center justify-between sm:hidden shadow-2xl border border-pink-500/40">
-    <div class="flex flex-col pl-1">
-      <span class="text-[10px] uppercase font-bold tracking-wider text-pink-400">All-Access Pass</span>
-      <span class="text-base font-black text-white">₹799 <span class="text-[11px] text-zinc-400 font-normal">/ person</span></span>
+  <!-- Mobile Sticky Pass Dock -->
+  <div class="fixed bottom-3 inset-x-3 z-50 p-3 glass-panel rounded-2xl flex items-center justify-between sm:hidden shadow-2xl border border-pink-500/35">
+    <div>
+      <div class="text-[9px] font-black uppercase tracking-wider text-pink-400">All-Access Pass</div>
+      <div class="text-base font-black text-white">₹799 <span class="text-[10px] text-zinc-400 font-normal">/person</span></div>
     </div>
     <a 
       href="https://forms.gle/JTymBZGDyczLp4JW9" 
       target="_blank" 
       rel="noopener noreferrer"
-      class="px-5 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 text-white font-syne font-black text-xs uppercase tracking-wider shadow-lg shadow-pink-500/40 active:scale-95 transition flex items-center gap-1.5"
+      class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 font-syne font-black text-xs text-white uppercase tracking-wider shadow-lg shadow-pink-500/40 active:scale-95 transition"
     >
-      <span>Claim Pass</span>
-      <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      Book Pass ⚡
     </a>
-  </nav>
+  </div>
 
-  <!-- Top Announcement Marquee -->
-  <aside aria-label="Live Announcement ticker" class="bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 text-black font-space font-black py-2 text-[11px] sm:text-xs uppercase tracking-widest overflow-hidden shadow-lg shadow-pink-600/20">
-    <div class="marquee-track whitespace-nowrap flex gap-6">
-      <span>🔥 LIMITED SPOTS ONLY</span>
+  <!-- Header Urgency Ribbon -->
+  <header class="bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 text-black font-syne font-black py-2 text-[11px] sm:text-xs uppercase tracking-widest overflow-hidden shadow-lg shadow-pink-500/15">
+    <div class="track-marquee whitespace-nowrap flex gap-8">
+      <span>🔥 LIMITED TICKETS AVAILABLE</span>
       <span>•</span>
-      <span>ALL DEPARTMENTS & STREAMS WELCOME (B.A, B.COM, LAW & FRIENDS)</span>
+      <span>B.A • B.COM • ALL STREAMS & COLLEGES ARE WELCOME</span>
       <span>•</span>
-      <span>OCTOBER 04, 2026 @ HITCHKI NAGPUR</span>
+      <span>04 OCTOBER 2026 @ HITCHKI NAGPUR</span>
       <span>•</span>
-      <span>LIVE DJ • RED CARPET • FOOD & SNACKS • DANCE FLOOR</span>
+      <span>DJ SET • DANCE FLOOR • FOOD • GAMES • PHOTOS</span>
       <span>•</span>
-      <span>🔥 LIMITED SPOTS ONLY</span>
+      <span>🔥 LIMITED TICKETS AVAILABLE</span>
       <span>•</span>
-      <span>ALL DEPARTMENTS & STREAMS WELCOME</span>
+      <span>B.A • B.COM • ALL STREAMS & COLLEGES ARE WELCOME</span>
       <span>•</span>
-      <span>OCTOBER 04, 2026 @ HITCHKI NAGPUR</span>
+      <span>04 OCTOBER 2026 @ HITCHKI NAGPUR</span>
       <span>•</span>
-      <span>LIVE DJ • RED CARPET • FOOD & SNACKS • DANCE FLOOR</span>
+      <span>DJ SET • DANCE FLOOR • FOOD • GAMES • PHOTOS</span>
     </div>
-  </aside>
+  </header>
 
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 flex flex-col items-center text-center">
+  <!-- Hero Presentation Section -->
+  <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 flex flex-col items-center text-center">
 
-    <!-- Organizer College Pill -->
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-pink-500/40 bg-pink-950/60 text-pink-300 text-[11px] sm:text-xs font-bold tracking-wide uppercase mb-3.5 backdrop-blur-md shadow-sm">
-      <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
-      <span>Dr. Ambedkar College Students Present</span>
+    <!-- Organizer Tag -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-pink-500/40 bg-pink-950/40 backdrop-blur-md text-pink-300 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-5 shadow-lg shadow-pink-500/10">
+      <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+      Dr. Ambedkar College Students Present
     </div>
 
-    <!-- Department Subhead -->
-    <h2 class="text-cyan-400 font-space text-[11px] sm:text-xs md:text-sm font-bold tracking-[0.25em] uppercase mb-1 drop-shadow">
-      An Unofficial Freshers Party • Organized by Law Department Students
+    <h2 class="text-cyan-400 font-syne text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase mb-3 glow-cyan-text">
+      An Unofficial Freshers Party
     </h2>
-    <div class="text-[10px] sm:text-xs text-yellow-400 font-extrabold tracking-wider uppercase mb-2">
-      ⚡ For The Very First Time! ⚡
-    </div>
 
-    <!-- Mega Hero Title -->
-    <div class="relative select-none my-1 w-full">
-      <h1 class="font-syne title-fluid-main font-black italic tracking-tighter text-white">
+    <!-- Centered Hero Titles with Safe Mobile Constraints -->
+    <div class="w-full flex flex-col items-center justify-center text-center select-none my-1">
+      <h1 class="font-syne hero-title-main font-black italic text-white tracking-tight">
         THE FRESHERS’
       </h1>
-      <div class="font-syne title-fluid-year font-black italic tracking-tighter neon-stroke -mt-2 sm:-mt-5">
+      <div class="font-syne hero-title-year font-black italic hollow-outline mt-[-0.2em]">
         ’26
       </div>
     </div>
 
-    <!-- Hero Tagline -->
-    <p class="font-space text-zinc-100 text-sm sm:text-lg font-bold tracking-wide max-w-lg mt-2 mb-4 drop-shadow">
+    <!-- Subtitle / Motto -->
+    <p class="font-syne text-zinc-200 text-sm sm:text-lg font-bold tracking-wide max-w-lg mt-4 mb-8 leading-snug">
       “One Campus. One Vibe. One Unforgettable Afternoon.”
     </p>
 
-    <!-- Welcome Stream Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 text-xs font-semibold mb-6">
-      <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-400"></i>
-      <span>All Streams Welcome: B.A, B.Com, Law & All College Friends!</span>
-    </div>
-
-    <!-- Urgency Spots Progress Bar -->
-    <div class="w-full max-w-md glass-card p-3.5 sm:p-4 rounded-2xl mb-8 text-left border-zinc-800">
+    <!-- Capacity Bar -->
+    <div class="w-full max-w-sm sm:max-w-md glass-panel p-3.5 rounded-2xl mb-10 text-left">
       <div class="flex justify-between items-center text-xs font-bold mb-2">
-        <span class="text-zinc-300 uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
-          <i data-lucide="zap" class="w-3.5 h-3.5 text-pink-400"></i> Passes Claimed
+        <span class="text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="zap" class="w-4 h-4 text-pink-500"></i> Passes Claimed
         </span>
-        <span class="text-pink-400 font-black text-[11px]">88% Booked • Limited Left</span>
+        <span class="text-pink-400 font-black tracking-wide">88% Booked</span>
       </div>
-      <div class="w-full bg-zinc-900 h-2.5 rounded-full overflow-hidden p-0.5 border border-zinc-700">
-        <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 h-full w-[88%] rounded-full shadow-md shadow-pink-500/40 animate-pulse"></div>
-      </div>
-    </div>
-
-    <!-- Real-time Countdown Timer -->
-    <div class="w-full max-w-xl glass-hero p-5 sm:p-7 rounded-3xl mb-12 shadow-2xl relative" data-tilt>
-      <div class="text-[11px] sm:text-xs font-black text-cyan-300 uppercase tracking-[0.25em] mb-4">Celebration Commences In</div>
-      <div class="grid grid-cols-4 gap-2 sm:gap-3 text-center">
-        <div class="bg-black/70 border border-zinc-800 rounded-2xl py-3 sm:py-4">
-          <span id="days" class="font-syne text-2xl sm:text-4xl md:text-5xl font-black text-white block">00</span>
-          <span class="text-[10px] sm:text-xs text-zinc-400 font-bold uppercase tracking-wider">Days</span>
-        </div>
-        <div class="bg-black/70 border border-zinc-800 rounded-2xl py-3 sm:py-4">
-          <span id="hours" class="font-syne text-2xl sm:text-4xl md:text-5xl font-black text-white block">00</span>
-          <span class="text-[10px] sm:text-xs text-zinc-400 font-bold uppercase tracking-wider">Hours</span>
-        </div>
-        <div class="bg-black/70 border border-zinc-800 rounded-2xl py-3 sm:py-4">
-          <span id="minutes" class="font-syne text-2xl sm:text-4xl md:text-5xl font-black text-white block">00</span>
-          <span class="text-[10px] sm:text-xs text-zinc-400 font-bold uppercase tracking-wider">Mins</span>
-        </div>
-        <div class="bg-black/70 border border-zinc-800 rounded-2xl py-3 sm:py-4">
-          <span id="seconds" class="font-syne text-2xl sm:text-4xl md:text-5xl font-black text-pink-400 block drop-shadow-[0_0_12px_rgba(244,63,94,0.7)]">00</span>
-          <span class="text-[10px] sm:text-xs text-zinc-400 font-bold uppercase tracking-wider">Secs</span>
-        </div>
+      <div class="w-full bg-zinc-900/90 h-2 rounded-full overflow-hidden p-0.5 border border-white/5">
+        <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 h-full w-[88%] rounded-full shadow-lg shadow-pink-500/50"></div>
       </div>
     </div>
 
-    <!-- 4 Core Event Details Grid -->
-    <section class="w-full mb-14 reveal-item">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        
-        <div class="glass-card p-4 rounded-2xl text-left border-zinc-800" data-tilt>
-          <div class="w-9 h-9 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 mb-2.5">
-            <i data-lucide="calendar" class="w-5 h-5"></i>
+    <!-- 3D Countdown Display -->
+    <div class="w-full max-w-2xl glass-panel p-5 sm:p-7 rounded-3xl mb-12 shadow-2xl relative">
+      <div class="text-[10px] sm:text-xs font-black text-cyan-400 uppercase tracking-[0.3em] mb-3">Party Starts In</div>
+      <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+        <div class="bg-black/50 border border-white/10 rounded-2xl py-3.5 sm:py-5">
+          <span id="days" class="font-syne text-2xl sm:text-5xl font-black text-white block">00</span>
+          <span class="text-[9px] sm:text-[11px] text-zinc-400 font-bold uppercase tracking-wider">Days</span>
+        </div>
+        <div class="bg-black/50 border border-white/10 rounded-2xl py-3.5 sm:py-5">
+          <span id="hours" class="font-syne text-2xl sm:text-5xl font-black text-white block">00</span>
+          <span class="text-[9px] sm:text-[11px] text-zinc-400 font-bold uppercase tracking-wider">Hours</span>
+        </div>
+        <div class="bg-black/50 border border-white/10 rounded-2xl py-3.5 sm:py-5">
+          <span id="mins" class="font-syne text-2xl sm:text-5xl font-black text-white block">00</span>
+          <span class="text-[9px] sm:text-[11px] text-zinc-400 font-bold uppercase tracking-wider">Mins</span>
+        </div>
+        <div class="bg-black/50 border border-white/10 rounded-2xl py-3.5 sm:py-5">
+          <span id="secs" class="font-syne text-2xl sm:text-5xl font-black text-pink-500 block glow-pink-text">00</span>
+          <span class="text-[9px] sm:text-[11px] text-zinc-400 font-bold uppercase tracking-wider">Secs</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Main Body Content with Scroll Animations -->
+  <main class="max-w-4xl mx-auto px-4 space-y-16">
+
+    <!-- Quick Details Row -->
+    <section class="reveal-item">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+        <div class="glass-card p-4 rounded-2xl">
+          <div class="w-8 h-8 rounded-lg bg-pink-500/15 flex items-center justify-center text-pink-400 mb-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
           </div>
-          <div class="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Date</div>
-          <div class="font-space font-extrabold text-sm sm:text-base text-white">04 Oct 2026</div>
+          <div class="text-[10px] text-zinc-400 uppercase font-black tracking-wider">Date</div>
+          <div class="font-syne text-sm sm:text-base font-bold text-white">04 Oct 2026</div>
         </div>
 
-        <div class="glass-card p-4 rounded-2xl text-left border-zinc-800" data-tilt>
-          <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 mb-2.5">
-            <i data-lucide="clock" class="w-5 h-5"></i>
+        <div class="glass-card p-4 rounded-2xl">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/15 flex items-center justify-center text-cyan-400 mb-2">
+            <i data-lucide="clock" class="w-4 h-4"></i>
           </div>
-          <div class="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Time</div>
-          <div class="font-space font-extrabold text-sm sm:text-base text-white">12:00 PM Onwards</div>
+          <div class="text-[10px] text-zinc-400 uppercase font-black tracking-wider">Time</div>
+          <div class="font-syne text-sm sm:text-base font-bold text-white">12:00 PM Onwards</div>
         </div>
 
-        <div class="glass-card p-4 rounded-2xl text-left border-zinc-800" data-tilt>
-          <div class="w-9 h-9 rounded-xl bg-yellow-500/20 border border-yellow-500/40 flex items-center justify-center text-yellow-400 mb-2.5">
-            <i data-lucide="map-pin" class="w-5 h-5"></i>
+        <div class="glass-card p-4 rounded-2xl">
+          <div class="w-8 h-8 rounded-lg bg-yellow-500/15 flex items-center justify-center text-yellow-400 mb-2">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
           </div>
-          <div class="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Venue</div>
-          <div class="font-space font-extrabold text-sm sm:text-base text-white">Hitchki, Nagpur</div>
+          <div class="text-[10px] text-zinc-400 uppercase font-black tracking-wider">Venue</div>
+          <div class="font-syne text-sm sm:text-base font-bold text-white">Hitchki, Nagpur</div>
         </div>
 
-        <div class="glass-card p-4 rounded-2xl text-left border-zinc-800" data-tilt>
-          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-2.5">
-            <i data-lucide="ticket" class="w-5 h-5"></i>
+        <div class="glass-card p-4 rounded-2xl">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 mb-2">
+            <i data-lucide="ticket" class="w-4 h-4"></i>
           </div>
-          <div class="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Entry Fee</div>
-          <div class="font-space font-extrabold text-sm sm:text-base text-emerald-400">₹799 / Person</div>
+          <div class="text-[10px] text-zinc-400 uppercase font-black tracking-wider">Entry Pass</div>
+          <div class="font-syne text-sm sm:text-base font-bold text-emerald-400">₹799 / Head</div>
         </div>
-
       </div>
     </section>
 
     <!-- Experience Inclusions Grid -->
-    <section class="w-full mb-14 reveal-item text-center">
-      <h3 class="font-syne text-xl sm:text-2xl font-black uppercase text-white mb-1.5">The Experience Lineup</h3>
-      <p class="text-[11px] sm:text-xs text-zinc-400 uppercase tracking-widest mb-6">Included With Every Entry Pass</p>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-3">
-        <div class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center gap-1" data-tilt>
+    <section class="reveal-item text-center">
+      <h3 class="font-syne text-2xl sm:text-3xl font-black uppercase text-white mb-2">The Experience Lineup</h3>
+      <p class="text-xs text-zinc-400 uppercase tracking-widest mb-6">What’s Included in Your ₹799 Pass</p>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
+        <div class="glass-card p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
           <i data-lucide="disc-3" class="w-6 h-6 text-pink-400"></i>
           <span class="text-xs font-bold text-white">Live DJ</span>
           <span class="text-[10px] text-zinc-400">Club Anthems</span>
         </div>
-        <div class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center gap-1" data-tilt>
+        <div class="glass-card p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
           <i data-lucide="flame" class="w-6 h-6 text-purple-400"></i>
           <span class="text-xs font-bold text-white">Dance Floor</span>
-          <span class="text-[10px] text-zinc-400">Lighting Rig</span>
+          <span class="text-[10px] text-zinc-400">Neon Ambience</span>
         </div>
-        <div class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center gap-1" data-tilt>
+        <div class="glass-card p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
           <i data-lucide="utensils" class="w-6 h-6 text-cyan-400"></i>
           <span class="text-xs font-bold text-white">Food Platter</span>
-          <span class="text-[10px] text-zinc-400">Tasty Starters</span>
+          <span class="text-[10px] text-zinc-400">Tasty Bites</span>
         </div>
-        <div class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center gap-1" data-tilt>
+        <div class="glass-card p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
           <i data-lucide="gamepad-2" class="w-6 h-6 text-yellow-400"></i>
           <span class="text-xs font-bold text-white">Party Games</span>
-          <span class="text-[10px] text-zinc-400">Spot Prizes</span>
+          <span class="text-[10px] text-zinc-400">Interactive Fun</span>
         </div>
-        <div class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center gap-1" data-tilt>
+        <div class="glass-card p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
           <i data-lucide="camera" class="w-6 h-6 text-rose-400"></i>
           <span class="text-xs font-bold text-white">Photo Booth</span>
-          <span class="text-[10px] text-zinc-400">Aesthetic Snaps</span>
+          <span class="text-[10px] text-zinc-400">Photogenic Fits</span>
         </div>
-        <div class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center gap-1" data-tilt>
-          <i data-lucide="sparkles" class="w-6 h-6 text-emerald-400"></i>
-          <span class="text-xs font-bold text-white">Limitless Vibes</span>
-          <span class="text-[10px] text-zinc-400">Memories</span>
+        <div class="glass-card p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
+          <i data-lucide="infinity" class="w-6 h-6 text-emerald-400"></i>
+          <span class="text-xs font-bold text-white">Pure Vibes</span>
+          <span class="text-[10px] text-zinc-400">Core Memories</span>
         </div>
       </div>
     </section>
 
-    <!-- Itinerary Timeline & Guidelines -->
-    <section class="w-full mb-14 reveal-item grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-      
-      <!-- Event Schedule -->
-      <div class="glass-card p-5 sm:p-6 rounded-3xl border-zinc-800" data-tilt>
-        <h4 class="font-syne text-base sm:text-lg font-bold uppercase text-white flex items-center gap-2 mb-4">
-          <i data-lucide="clock-4" class="w-5 h-5 text-pink-400"></i> Event Itinerary
+    <!-- Event Schedule Timeline & Guidelines -->
+    <section class="reveal-item grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+      <!-- Schedule -->
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl">
+        <h4 class="font-syne text-lg font-black uppercase text-white flex items-center gap-2 mb-4">
+          <i data-lucide="clock-4" class="w-4 h-4 text-pink-400"></i> Itinerary
         </h4>
-        <div class="space-y-4 border-l border-zinc-700 ml-2 pl-4">
+        <div class="space-y-4 border-l border-zinc-800 pl-3.5 ml-1">
           <div>
-            <span class="text-[11px] font-bold text-pink-400 uppercase tracking-wider">12:00 PM – 01:00 PM</span>
+            <span class="text-[11px] font-black text-pink-400 tracking-wider">12:00 PM – 01:00 PM</span>
             <div class="font-bold text-sm text-zinc-100">Red Carpet Arrival & Registration</div>
-            <div class="text-xs text-zinc-300">ID verification, wristband tag, welcome mocktail, and photobooth.</div>
+            <div class="text-[11px] text-zinc-400">Pass verification, security check, wristbands & photo ops.</div>
           </div>
           <div>
-            <span class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider">01:00 PM – 02:30 PM</span>
-            <div class="font-bold text-sm text-zinc-100">Squad Icebreakers & Gourmet Food</div>
-            <div class="text-xs text-zinc-300">Spot awards, interactive party games, and hot starters platter.</div>
+            <span class="text-[11px] font-black text-cyan-400 tracking-wider">01:00 PM – 02:30 PM</span>
+            <div class="font-bold text-sm text-zinc-100">Icebreakers & Starters Platter</div>
+            <div class="text-[11px] text-zinc-400">Squad games, welcoming intros, mocktails and refreshments.</div>
           </div>
           <div>
-            <span class="text-[11px] font-bold text-yellow-400 uppercase tracking-wider">02:30 PM – Till Late</span>
-            <div class="font-bold text-sm text-zinc-100">DJ Takeover & Open Dance Floor</div>
-            <div class="text-xs text-zinc-300">Bollywood, EDM, and Punjabi club bangers on full volume.</div>
+            <span class="text-[11px] font-black text-yellow-400 tracking-wider">02:30 PM – Till Late</span>
+            <div class="font-bold text-sm text-zinc-100">Mainstage DJ & Dance Floor</div>
+            <div class="text-[11px] text-zinc-400">Non-stop Bollywood, Punjabi & EDM party bangers.</div>
           </div>
         </div>
       </div>
 
       <!-- Guidelines -->
-      <div class="glass-card p-5 sm:p-6 rounded-3xl border-zinc-800 flex flex-col justify-between" data-tilt>
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
         <div>
-          <h4 class="font-syne text-base sm:text-lg font-bold uppercase text-white flex items-center gap-2 mb-4">
-            <i data-lucide="shield-check" class="w-5 h-5 text-cyan-400"></i> Essential Guidelines
+          <h4 class="font-syne text-lg font-black uppercase text-white flex items-center gap-2 mb-4">
+            <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i> Event Guidelines
           </h4>
-          <ul class="space-y-3 text-xs text-zinc-200">
+          <ul class="space-y-3 text-xs text-zinc-300">
             <li class="flex items-start gap-2.5">
-              <i data-lucide="check-circle" class="w-4 h-4 text-pink-400 shrink-0 mt-0.5"></i>
-              <span><strong>Dress Code:</strong> Smart Casuals / Party Chic. Look sharp and camera-ready!</span>
+              <i data-lucide="sparkles" class="w-4 h-4 text-pink-400 shrink-0 mt-0.5"></i>
+              <span><strong>Dress Code:</strong> Smart Casuals / Party Chic. Dress up and stand out!</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
-              <span><strong>Verification:</strong> College ID & valid Google Form registration receipt compulsory.</span>
+              <i data-lucide="id-card" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+              <span><strong>Verification:</strong> Keep your College ID & payment screenshot handy at entry.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <i data-lucide="check-circle" class="w-4 h-4 text-yellow-400 shrink-0 mt-0.5"></i>
-              <span><strong>All Streams Welcomed:</strong> Organized by Law students, open to B.A, B.Com, and all friends.</span>
+              <i data-lucide="users" class="w-4 h-4 text-yellow-400 shrink-0 mt-0.5"></i>
+              <span><strong>Open Stream Access:</strong> Organized by Law students, welcoming B.A, B.Com & all friends.</span>
             </li>
           </ul>
         </div>
-        <div class="mt-4 pt-3 border-t border-zinc-800 text-[11px] text-zinc-400">
-          * Passes are strictly non-transferable once verified.
+        <div class="mt-4 pt-3 border-t border-zinc-900 text-[10px] text-zinc-500">
+          * Note: Unofficial event organized by Law Department students. Not affiliated with Dr. Ambedkar College.
         </div>
-      </div>
-
-    </section>
-
-    <!-- Master VIP Ticket Registration Card (Perforated Ticket Stub Style) -->
-    <section class="w-full max-w-lg mx-auto mb-14 reveal-item">
-      <div class="glass-hero ticket-stub p-6 sm:p-8 rounded-3xl text-left relative shadow-2xl" data-tilt>
-        
-        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-4 mb-5">
-          <div>
-            <span class="text-[10px] font-black uppercase tracking-widest text-cyan-400">Official Pass Terminal</span>
-            <h3 class="font-syne text-xl sm:text-2xl font-black text-white">THE FRESHERS ’26 PASS</h3>
-          </div>
-          <div class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 font-space text-sm font-bold">
-            ₹799 Only
-          </div>
-        </div>
-
-        <!-- Numbered Payment Steps -->
-        <div class="space-y-3 mb-6 text-xs text-zinc-200">
-          <div class="flex items-start gap-3">
-            <span class="w-6 h-6 rounded-lg bg-pink-500/20 border border-pink-500/50 text-pink-400 font-bold flex items-center justify-center shrink-0 text-xs">1</span>
-            <span>Tap <strong>"Register & Pay via Google Form"</strong> button below.</span>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 font-bold flex items-center justify-center shrink-0 text-xs">2</span>
-            <span>Scan the UPI QR code inside the form & pay <strong>₹799</strong>.</span>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="w-6 h-6 rounded-lg bg-yellow-500/20 border border-yellow-500/50 text-yellow-400 font-bold flex items-center justify-center shrink-0 text-xs">3</span>
-            <span>Enter your <strong>Transaction ID / UTR</strong> & attach payment screenshot.</span>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="w-6 h-6 rounded-lg bg-purple-500/20 border border-purple-500/50 text-purple-400 font-bold flex items-center justify-center shrink-0 text-xs">4</span>
-            <span>Pass confirmed immediately upon verification.</span>
-          </div>
-        </div>
-
-        <!-- Google Forms Button with Confetti Trigger -->
-        <a 
-          href="https://forms.gle/JTymBZGDyczLp4JW9" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          id="confettiBtn"
-          class="group relative w-full min-h-[52px] bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 text-white font-syne text-sm sm:text-base font-black py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 shadow-xl shadow-pink-500/30 active:scale-95 transition-all overflow-hidden"
-        >
-          <span class="tracking-wide uppercase">Register & Pay via Google Form</span>
-          <i data-lucide="arrow-up-right" class="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
-        </a>
-
-        <!-- Official Disclaimer -->
-        <p class="text-[11px] text-zinc-400 text-center mt-4 leading-relaxed">
-          📌 <strong>Note:</strong> This is an unofficial freshers’ event organized by Law Department students and is not affiliated with or officially organized by Dr. Ambedkar College.
-        </p>
       </div>
     </section>
 
-    <!-- Venue Location & Embedded Google Map Section -->
-    <section class="w-full max-w-4xl mx-auto mb-14 reveal-item text-left">
-      <div class="glass-card p-5 sm:p-7 rounded-3xl border border-zinc-800 shadow-2xl relative overflow-hidden" data-tilt>
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5 pb-4 border-b border-zinc-800">
+    <!-- Embedded Google Maps Section -->
+    <section class="reveal-item text-left">
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-zinc-800">
           <div>
-            <div class="flex items-center gap-2 text-xs font-black text-cyan-400 uppercase tracking-widest mb-1">
-              <i data-lucide="map-pin" class="w-4 h-4 text-pink-500"></i> Event Destination
+            <div class="flex items-center gap-1.5 text-[11px] font-black text-cyan-400 uppercase tracking-widest mb-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-pink-500"></i> Event Venue
             </div>
-            <h3 class="font-syne text-2xl sm:text-3xl font-black text-white">Hitchki, Nagpur</h3>
-            <p class="text-xs sm:text-sm text-zinc-300 mt-1">
-              12th & Terrace Floor, Plot 2/1 & 11/2, Chhaoni Rd, New Colony, Nagpur, Maharashtra 440001
+            <h3 class="font-syne text-xl sm:text-2xl font-black text-white">Hitchki, Nagpur</h3>
+            <p class="text-xs text-zinc-400 mt-0.5">
+              Naniks Ashtavinayak Park Avenue, Chhaoni Rd, New Colony, Nagpur
             </p>
           </div>
 
           <a 
-            href="https://maps.google.com/?cid=3900423300785342612" 
+            href="https://www.google.com/maps/dir/?api=1&destination=Hitchki+Nagpur" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-pink-500/20 active:scale-95 transition-all shrink-0 self-start sm:self-auto"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg active:scale-95 transition shrink-0 self-start sm:self-auto"
           >
-            <span>Open in Google Maps</span>
-            <i data-lucide="navigation" class="w-4 h-4"></i>
+            <span>Open in Maps</span>
+            <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
           </a>
         </div>
 
-        <!-- Responsive Map Frame -->
-        <div class="relative w-full h-[280px] sm:h-[380px] rounded-2xl overflow-hidden border border-zinc-800 shadow-inner">
+        <!-- Google Maps Iframe -->
+        <div class="relative w-full h-[240px] sm:h-[340px] rounded-2xl overflow-hidden border border-zinc-800">
           <iframe 
-            title="Hitchki Nagpur Location"
-            class="w-full h-full border-0 contrast-[105%]"
+            title="Hitchki Nagpur Location Map"
+            class="w-full h-full border-0 grayscale-[25%] contrast-[110%] rounded-2xl"
             src="https://maps.google.com/maps?q=Hitchki,+Chhaoni+Rd,+New+Colony,+Nagpur&t=&z=16&ie=UTF8&iwloc=&output=embed" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade"
             allowfullscreen>
           </iframe>
         </div>
+      </div>
+    </section>
 
-        <div class="flex flex-wrap items-center justify-between gap-2 mt-4 text-[11px] text-zinc-400">
-          <span class="flex items-center gap-1.5"><i data-lucide="car" class="w-3.5 h-3.5 text-cyan-400"></i> Parking and valet facilities available at venue</span>
-          <span>📍 Landmark: Chaoni Square, Sadar</span>
+    <!-- Master VIP Pass & Google Forms Registration Box -->
+    <section class="reveal-item max-w-xl mx-auto">
+      <div class="glass-panel p-5 sm:p-8 rounded-3xl text-left border border-pink-500/40 relative shadow-2xl">
+        
+        <div class="flex items-center justify-between border-b border-zinc-800 pb-3 mb-5">
+          <div>
+            <div class="text-[9px] font-black uppercase tracking-widest text-cyan-400">Official Pass Booking</div>
+            <h3 class="font-syne text-xl sm:text-2xl font-black text-white">Grab Your Freshers '26 Pass</h3>
+          </div>
+          <div class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-syne text-sm font-black">
+            ₹799
+          </div>
         </div>
 
+        <div class="space-y-3 mb-6 text-xs text-zinc-300">
+          <div class="flex items-start gap-2.5">
+            <span class="w-5 h-5 rounded-md bg-pink-500/20 border border-pink-500/40 text-pink-400 font-syne font-black flex items-center justify-center shrink-0 text-[11px]">1</span>
+            <span>Click the button below to launch the official Google Registration Form.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-5 h-5 rounded-md bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 font-syne font-black flex items-center justify-center shrink-0 text-[11px]">2</span>
+            <span>Scan the UPI QR code inside the form and pay <strong>₹799</strong>.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-5 h-5 rounded-md bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 font-syne font-black flex items-center justify-center shrink-0 text-[11px]">3</span>
+            <span>Enter your <strong>Transaction ID / UTR</strong> and attach a clear payment screenshot.</span>
+          </div>
+        </div>
+
+        <!-- Google Forms Button with Interactive Confetti -->
+        <a 
+          href="https://forms.gle/JTymBZGDyczLp4JW9" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          id="confettiBtn"
+          class="group relative w-full bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 hover:opacity-95 text-white font-syne text-sm sm:text-base font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-2 shadow-xl shadow-pink-500/40 active:scale-95 transition-all overflow-hidden"
+        >
+          <span class="relative z-10 tracking-wide uppercase">Open Google Form & Register</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+        </a>
+
+        <p class="text-[10px] text-zinc-500 text-center mt-4">
+          * Strictly non-refundable and non-transferable passes once booked.
+        </p>
       </div>
     </section>
 
-    <!-- Frequently Asked Questions Accordion -->
-    <section class="w-full max-w-2xl mx-auto mb-14 reveal-item text-left">
-      <h3 class="font-syne text-xl sm:text-2xl font-black uppercase text-center text-white mb-6">Frequently Asked Questions</h3>
-      
-      <div class="space-y-3">
-        <details class="glass-card rounded-2xl p-4 cursor-pointer group transition border-zinc-800">
-          <summary class="font-bold text-sm text-zinc-100 flex justify-between items-center select-none list-none">
-            <span>Can non-law department students join?</span>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400 transition-transform group-open:rotate-180"></i>
-          </summary>
-          <p class="text-xs text-zinc-300 mt-2.5 leading-relaxed pt-2 border-t border-zinc-800/80">
-            Absolutely! While spearheaded by Law department students, the party is open to B.A, B.Com, Science, and all friends across departments and campuses.
-          </p>
-        </details>
-
-        <details class="glass-card rounded-2xl p-4 cursor-pointer group transition border-zinc-800">
-          <summary class="font-bold text-sm text-zinc-100 flex justify-between items-center select-none list-none">
-            <span>What all is included in the ₹799 pass?</span>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400 transition-transform group-open:rotate-180"></i>
-          </summary>
-          <p class="text-xs text-zinc-300 mt-2.5 leading-relaxed pt-2 border-t border-zinc-800/80">
-            Your pass grants all-inclusive access to the live club DJ dance floor, food platters and starters, interactive spot games, photo booth sessions, and party favors.
-          </p>
-        </details>
-
-        <details class="glass-card rounded-2xl p-4 cursor-pointer group transition border-zinc-800">
-          <summary class="font-bold text-sm text-zinc-100 flex justify-between items-center select-none list-none">
-            <span>How will I receive entry verification?</span>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400 transition-transform group-open:rotate-180"></i>
-          </summary>
-          <p class="text-xs text-zinc-300 mt-2.5 leading-relaxed pt-2 border-t border-zinc-800/80">
-            Once you fill the Google Form with your valid UPI UTR/Transaction ID and payment screenshot, the organizing team verifies the payment and issues your entry wristband on arrival.
-          </p>
-        </details>
-      </div>
-    </section>
-
-    <!-- Quick Utilities: WhatsApp & Map Navigation -->
-    <section class="w-full max-w-md mx-auto mb-10 reveal-item flex flex-wrap items-center justify-center gap-3">
+    <!-- Social Share & Utility Actions -->
+    <section class="reveal-item flex flex-wrap items-center justify-center gap-3 pb-12">
       <a 
-        href="https://api.whatsapp.com/send?text=Hey!%20Freshers%20Party%20%2726%20is%20happening%20at%20Hitchki%20Nagpur%20on%2004%20Oct.%20Grab%20your%20pass%20here:%20https://forms.gle/JTymBZGDyczLp4JW9" 
+        href="https://api.whatsapp.com/send?text=Freshers%20Party%20is%20on%20at%20Hitchki%20Nagpur%20on%2004%20Oct!%20Register%20fast:%20https://forms.gle/JTymBZGDyczLp4JW9" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="glass-card min-h-[46px] px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-200 flex items-center gap-2 hover:border-emerald-500/40 hover:text-white transition"
+        class="glass-card px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-300 flex items-center gap-2 hover:text-white"
       >
         <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
-        Share on WhatsApp
+        Share with College Friends
       </a>
       <a 
-        href="https://maps.google.com/?cid=3900423300785342612" 
+        href="https://maps.google.com/?q=Hitchki+Nagpur" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="glass-card min-h-[46px] px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-200 flex items-center gap-2 hover:border-cyan-500/40 hover:text-white transition"
+        class="glass-card px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-300 flex items-center gap-2 hover:text-white"
       >
-        <i data-lucide="navigation" class="w-4 h-4 text-cyan-400"></i>
-        Get Directions to Hitchki
+        <i data-lucide="map" class="w-4 h-4 text-cyan-400"></i>
+        Navigate to Hitchki
       </a>
     </section>
 
   </main>
 
-  <footer class="text-center text-xs text-zinc-400 border-t border-zinc-800/80 py-6 px-4">
-    THE FRESHERS’ ’26 • Organized by Law Department Students • Hitchki, Nagpur
+  <footer class="text-center text-xs text-zinc-600 border-t border-zinc-900 py-6">
+    The Freshers’ ’26 • Curated with ❤️ by Law Department Students
   </footer>
 
+  <!-- Scripts -->
   <script>
-    // 1. Initialize Lucide Icons
-    if (window.lucide) {
-      lucide.createIcons();
+    // 1. Initialize Icons
+    lucide.createIcons();
+
+    // 2. Interactive 3D Canvas Background with Floating Geometry (Three.js)
+    const canvas = document.getElementById('canvas-3d');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Floating 3D Geometric Meshes (Icosahedron, Torus, Octahedron)
+    const shapesGroup = new THREE.Group();
+    scene.add(shapesGroup);
+
+    // Neon Pink Wireframe Torus
+    const torusGeo = new THREE.TorusGeometry(1.6, 0.35, 12, 32);
+    const pinkWireMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e, wireframe: true, transparent: true, opacity: 0.45 });
+    const torusMesh = new THREE.Mesh(torusGeo, pinkWireMat);
+    torusMesh.position.set(-2.5, 1.5, -2);
+    shapesGroup.add(torusMesh);
+
+    // Neon Cyan Wireframe Icosahedron
+    const icoGeo = new THREE.IcosahedronGeometry(1.4, 1);
+    const cyanWireMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.5 });
+    const icoMesh = new THREE.Mesh(icoGeo, cyanWireMat);
+    icoMesh.position.set(2.8, -1, -1.5);
+    shapesGroup.add(icoMesh);
+
+    // Purple Octahedron Gem
+    const octGeo = new THREE.OctahedronGeometry(1.2, 0);
+    const purpleWireMat = new THREE.MeshBasicMaterial({ color: 0xa855f7, wireframe: true, transparent: true, opacity: 0.4 });
+    const octMesh = new THREE.Mesh(octGeo, purpleWireMat);
+    octMesh.position.set(0.2, 3.2, -3);
+    shapesGroup.add(octMesh);
+
+    // Floating Starfield Particles
+    const particlesCount = 550;
+    const pos = new Float32Array(particlesCount * 3);
+    const colors = new Float32Array(particlesCount * 3);
+    const colPink = new THREE.Color(0xf43f5e);
+    const colCyan = new THREE.Color(0x06b6d4);
+
+    for (let i = 0; i < particlesCount * 3; i += 3) {
+      pos[i] = (Math.random() - 0.5) * 14;
+      pos[i + 1] = (Math.random() - 0.5) * 14;
+      pos[i + 2] = (Math.random() - 0.5) * 12;
+
+      const c = Math.random() > 0.5 ? colPink : colCyan;
+      colors[i] = c.r;
+      colors[i + 1] = c.g;
+      colors[i + 2] = c.b;
     }
 
-    // 2. Interactive Three.js Particle Atmosphere (Mobile Optimized & Battery Friendly)
-    try {
-      const canvas = document.getElementById('stage-canvas');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false, powerPreference: "low-power" });
+    const particlesGeo = new THREE.BufferGeometry();
+    particlesGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    particlesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-      const isMobile = window.innerWidth < 768;
+    const particlesMat = new THREE.PointsMaterial({
+      size: 0.035,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.75
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+    scene.add(particlesMesh);
+    camera.position.z = 5;
+
+    // Mouse & Touch Interaction Parallax
+    let targetX = 0, targetY = 0;
+    window.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX / window.innerWidth) - 0.5;
+      targetY = (e.clientY / window.innerHeight) - 0.5;
+    });
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        targetX = (e.touches[0].clientX / window.innerWidth) - 0.5;
+        targetY = (e.touches[0].clientY / window.innerHeight) - 0.5;
+      }
+    }, { passive: true });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      const elapsed = clock.getElapsedTime();
+
+      // Rotate individual 3D objects
+      torusMesh.rotation.x = elapsed * 0.4;
+      torusMesh.rotation.y = elapsed * 0.3;
+      icoMesh.rotation.x = elapsed * 0.35;
+      icoMesh.rotation.y = elapsed * 0.45;
+      octMesh.rotation.y = elapsed * 0.5;
+
+      // Group smooth track
+      shapesGroup.rotation.y = elapsed * 0.08 + targetX * 0.4;
+      shapesGroup.rotation.x = -targetY * 0.4;
+
+      particlesMesh.rotation.y = elapsed * 0.03;
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.0 : 1.5));
+    });
 
-      const particleCount = isMobile ? 180 : 500;
-      const positions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
-
-      const colorPink = new THREE.Color(0xf43f5e);
-      const colorCyan = new THREE.Color(0x06b6d4);
-
-      for (let i = 0; i < particleCount * 3; i += 3) {
-        positions[i] = (Math.random() - 0.5) * 12;
-        positions[i + 1] = (Math.random() - 0.5) * 12;
-        positions[i + 2] = (Math.random() - 0.5) * 12;
-
-        const selColor = Math.random() > 0.5 ? colorPink : colorCyan;
-        colors[i] = selColor.r;
-        colors[i + 1] = selColor.g;
-        colors[i + 2] = selColor.b;
-      }
-
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-      const material = new THREE.PointsMaterial({
-        size: isMobile ? 0.035 : 0.025,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.55
-      });
-
-      const particleMesh = new THREE.Points(geometry, material);
-      scene.add(particleMesh);
-      camera.position.z = 4.5;
-
-      let mouseX = 0;
-      let mouseY = 0;
-      if (!isMobile) {
-        window.addEventListener('mousemove', (e) => {
-          mouseX = (e.clientX / window.innerWidth) - 0.5;
-          mouseY = (e.clientY / window.innerHeight) - 0.5;
-        });
-      }
-
-      let clock = new THREE.Clock();
-      function render3D() {
-        const delta = clock.getElapsedTime();
-        particleMesh.rotation.y = delta * 0.03 + (mouseX * 0.15);
-        particleMesh.rotation.x = -mouseY * 0.15;
-        renderer.render(scene, camera);
-        requestAnimationFrame(render3D);
-      }
-      render3D();
-
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-    } catch (e) {
-      console.warn("WebGL disabled or unavailable:", e);
-    }
-
-    // 3. Desktop Tilt Hover Physics (Disabled on touch devices to ensure clean mobile scroll)
-    if (window.matchMedia("(min-width: 1024px)").matches) {
-      document.querySelectorAll('[data-tilt]').forEach((card) => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          const tiltX = (y / (rect.height / 2)) * -5;
-          const tiltY = (x / (rect.width / 2)) * 5;
-          card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(4px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-        });
-      });
-    }
-
-    // 4. Scroll Reveal Observer with Fallback
+    // 3. Scroll Reveal Animation
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
         }
       });
     }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
 
-    document.querySelectorAll('.reveal-item').forEach((item) => {
-      observer.observe(item);
+    // 4. Confetti Blast on Pass Click
+    document.getElementById('confettiBtn').addEventListener('click', () => {
+      confetti({
+        particleCount: 130,
+        spread: 85,
+        origin: { y: 0.6 }
+      });
     });
 
-    // 5. Confetti Blast Event on Registration Click
-    const confettiButton = document.getElementById('confettiBtn');
-    if (confettiButton && window.confetti) {
-      confettiButton.addEventListener('click', () => {
-        confetti({
-          particleCount: 100,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
-      });
-    }
-
-    // 6. Live Accurate Countdown to October 04, 2026, 12:00:00 PM IST
-    const targetDate = new Date("October 4, 2026 12:00:00").getTime();
-
-    function updateTimer() {
+    // 5. Target Countdown Timer: October 4, 2026, 12:00:00 PM IST
+    const eventTime = new Date("October 4, 2026 12:00:00").getTime();
+    function updateCountdown() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const diff = eventTime - now;
 
-      if (distance <= 0) {
-        document.getElementById("days").innerText = "00";
-        document.getElementById("hours").innerText = "00";
-        document.getElementById("minutes").innerText = "00";
-        document.getElementById("seconds").innerText = "00";
+      if (diff <= 0) {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('mins').innerText = "00";
+        document.getElementById('secs').innerText = "00";
         return;
       }
 
-      const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((distance % (1000 * 60)) / 1000);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-      document.getElementById("days").innerText = String(d).padStart(2, '0');
-      document.getElementById("hours").innerText = String(h).padStart(2, '0');
-      document.getElementById("minutes").innerText = String(m).padStart(2, '0');
-      document.getElementById("seconds").innerText = String(s).padStart(2, '0');
+      document.getElementById('days').innerText = String(d).padStart(2, '0');
+      document.getElementById('hours').innerText = String(h).padStart(2, '0');
+      document.getElementById('mins').innerText = String(m).padStart(2, '0');
+      document.getElementById('secs').innerText = String(s).padStart(2, '0');
     }
-
-    updateTimer();
-    setInterval(updateTimer, 1000);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
