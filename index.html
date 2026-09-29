@@ -137,19 +137,23 @@
   <!-- Header Urgency Ribbon -->
   <header class="bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 text-black font-syne font-black py-2 text-[11px] sm:text-xs uppercase tracking-widest overflow-hidden shadow-lg shadow-pink-500/15">
     <div class="track-marquee whitespace-nowrap flex gap-8">
-      <span>🔥 LIMITED TICKETS AVAILABLE</span>
+      <span>🔥 RESCHEDULED & CONFIRMED: 10 OCTOBER 2026</span>
+      <span>•</span>
+      <span>LIMITED TICKETS AVAILABLE</span>
       <span>•</span>
       <span>B.A • B.COM • ALL STREAMS & COLLEGES ARE WELCOME</span>
       <span>•</span>
-      <span>04 OCTOBER 2026 @ HITCHKI NAGPUR</span>
+      <span>10 OCTOBER 2026 @ HITCHKI NAGPUR</span>
       <span>•</span>
       <span>DJ SET • DANCE FLOOR • FOOD • GAMES • PHOTOS</span>
       <span>•</span>
-      <span>🔥 LIMITED TICKETS AVAILABLE</span>
+      <span>🔥 RESCHEDULED & CONFIRMED: 10 OCTOBER 2026</span>
+      <span>•</span>
+      <span>LIMITED TICKETS AVAILABLE</span>
       <span>•</span>
       <span>B.A • B.COM • ALL STREAMS & COLLEGES ARE WELCOME</span>
       <span>•</span>
-      <span>04 OCTOBER 2026 @ HITCHKI NAGPUR</span>
+      <span>10 OCTOBER 2026 @ HITCHKI NAGPUR</span>
       <span>•</span>
       <span>DJ SET • DANCE FLOOR • FOOD • GAMES • PHOTOS</span>
     </div>
@@ -198,7 +202,7 @@
 
     <!-- 3D Countdown Display -->
     <div class="w-full max-w-2xl glass-panel p-5 sm:p-7 rounded-3xl mb-12 shadow-2xl relative">
-      <div class="text-[10px] sm:text-xs font-black text-cyan-400 uppercase tracking-[0.3em] mb-3">Party Starts In</div>
+      <div class="text-[10px] sm:text-xs font-black text-cyan-400 uppercase tracking-[0.3em] mb-3">Party Starts In (10 Oct 2026)</div>
       <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
         <div class="bg-black/50 border border-white/10 rounded-2xl py-3.5 sm:py-5">
           <span id="days" class="font-syne text-2xl sm:text-5xl font-black text-white block">00</span>
@@ -227,12 +231,12 @@
     <!-- Quick Details Row -->
     <section class="reveal-item">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
-        <div class="glass-card p-4 rounded-2xl">
+        <div class="glass-card p-4 rounded-2xl border-pink-500/30">
           <div class="w-8 h-8 rounded-lg bg-pink-500/15 flex items-center justify-center text-pink-400 mb-2">
             <i data-lucide="calendar" class="w-4 h-4"></i>
           </div>
           <div class="text-[10px] text-zinc-400 uppercase font-black tracking-wider">Date</div>
-          <div class="font-syne text-sm sm:text-base font-bold text-white">04 Oct 2026</div>
+          <div class="font-syne text-sm sm:text-base font-bold text-white">10 Oct 2026</div>
         </div>
 
         <div class="glass-card p-4 rounded-2xl">
@@ -305,7 +309,7 @@
       <!-- Schedule -->
       <div class="glass-panel p-5 sm:p-6 rounded-3xl">
         <h4 class="font-syne text-lg font-black uppercase text-white flex items-center gap-2 mb-4">
-          <i data-lucide="clock-4" class="w-4 h-4 text-pink-400"></i> Itinerary
+          <i data-lucide="clock-4" class="w-4 h-4 text-pink-400"></i> Saturday Timeline (10 Oct)
         </h4>
         <div class="space-y-4 border-l border-zinc-800 pl-3.5 ml-1">
           <div>
@@ -442,7 +446,7 @@
     <!-- Social Share & Utility Actions -->
     <section class="reveal-item flex flex-wrap items-center justify-center gap-3 pb-12">
       <a 
-        href="https://api.whatsapp.com/send?text=Freshers%20Party%20is%20on%20at%20Hitchki%20Nagpur%20on%2004%20Oct!%20Register%20fast:%20https://forms.gle/JTymBZGDyczLp4JW9" 
+        href="https://api.whatsapp.com/send?text=Freshers%20Party%20is%20rescheduled%20to%2010%20OCTOBER%202026%20at%20Hitchki%20Nagpur!%20Register%20fast:%20https://forms.gle/JTymBZGDyczLp4JW9" 
         target="_blank" 
         rel="noopener noreferrer"
         class="glass-card px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-300 flex items-center gap-2 hover:text-white"
@@ -599,8 +603,8 @@
       });
     });
 
-    // 5. Target Countdown Timer: October 4, 2026, 12:00:00 PM IST
-    const eventTime = new Date("October 4, 2026 12:00:00").getTime();
+    // 5. Updated Target Countdown Timer: October 10, 2026, 12:00:00 PM IST
+    const eventTime = new Date("October 10, 2026 12:00:00").getTime();
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = eventTime - now;
